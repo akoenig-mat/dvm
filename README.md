@@ -1,4 +1,4 @@
-# dvm
+# Deep Visual Memories
 #
 Integration with Touchdesigner 2021.15240 on Windows 10 Ryzen 7 AMD - RTX 2080 TI
 
