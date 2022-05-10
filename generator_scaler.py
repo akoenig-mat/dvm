@@ -2,6 +2,10 @@
 # scriptOp - the OP which is cooking
 #
 # press 'Setup Parameters' in the OP to call this function to re-create the parameters.
+#
+## Python Program to integrate Pix2Pix Models in Touchdesigner and scale them up to 1024x1024
+## by Alexander König 2021
+#
 import numpy as np
 import cv2
 import tensorflow as tf
@@ -9,8 +13,8 @@ import numpy as np
 from PIL import Image
 from tensorflow.keras.models import Sequential, Model, load_model, save_model
 
-pix2pix_model = "C:/Users/dvm/DVM-BasicSetup/Testrun_weiru/save_model"
-sr_model = "C:/Users/dvm/DVM-BasicSetup/SuperResolution/ESPCN_x4.pb"
+pix2pix_model = "/save_model"
+sr_model = "/SuperResolution/ESPCN_x4.pb"
 
 #load ML-Models
 sr = cv2.dnn_superres.DnnSuperResImpl_create()
@@ -46,12 +50,12 @@ def batch_generator():
     pil_img = tf.squeeze(img)
     pil_img = (pil_img * 127.5) + 1
     pil_img = tf.keras.preprocessing.image.array_to_img(pil_img)
-    pil_img.save('t7.png','PNG')
+    pil_img.save('generated.png','PNG')
 
     ## super resolution
-    img = cv2.imread('t7.png')
+    img = cv2.imread('generated.png')
     res_img = sr.upsample(img)
-    cv2.imwrite('C:/Users/dvm/DVM-BasicSetup/image.png',res_img)
+    cv2.imwrite('/image.png',res_img)
 
     #reload Touchdesigner Op
     op('/project1/AI_IN').par.reloadpulse.pulse()
